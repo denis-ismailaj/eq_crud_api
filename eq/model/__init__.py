@@ -18,11 +18,11 @@ class Earthquake(BaseModel):
     class Meta:
         table_name = "earthquakes"
 
-    id = PrimaryKeyField(unique = True)
-    date = DateTimeField(db_column = "data")
-    time = DateTimeField(db_column = "ora")
-    latitude = DoubleField(db_column = "lattitude")
-    longitude = DoubleField(db_column = "longtitude")
-    depth = DoubleField(db_column = "thellesia")
-    distance = DoubleField(db_column = "largesia")
-    place = CharField(db_column = "vendodhja") 
+    id        = PrimaryKeyField (unique = True)
+    date      = DateTimeField   (db_column = "data")
+    time      = DateTimeField   (db_column = "ora")
+    latitude  = DoubleField     (db_column = "lattitude")
+    longitude = DoubleField     (db_column = "longtitude")
+    depth     = DoubleField     (db_column = "thellesia")
+    distance  = DoubleField     (db_column = "largesia")
+    place     = CharField       (db_column = "vendodhja") 
