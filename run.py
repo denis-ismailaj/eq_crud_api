@@ -1,5 +1,4 @@
 from eq import app
-from peewee import *
 from instance.config import *
 
 
