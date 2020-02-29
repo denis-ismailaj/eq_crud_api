@@ -1,6 +1,7 @@
 from flask import Flask
 from peewee import *
 from instance.config import *
+import json
 
 from eq.model import database, Earthquake
 
@@ -24,4 +25,10 @@ def say_hello():
 
 @app.route('/api/eq')
 def get_earthquake():
-    Earthquake.select()
+    earthquakes = Earthquake.select()
+
+    response = {
+        "result": [eq.to_dictionary() for eq in earthquakedb]
+    }
+
+    return json.dumps(response), 200

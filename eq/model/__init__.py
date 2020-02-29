@@ -14,6 +14,10 @@ class BaseModel(Model):
     def stringify():
         return json.dumps(model_to_dict(self)) 
 
+    def to_dictionary():
+        return model_to_dict(self)
+
+
 class Earthquake(BaseModel):
     class Meta:
         table_name = "earthquakes"
