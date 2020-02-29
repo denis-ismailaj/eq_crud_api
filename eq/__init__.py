@@ -28,7 +28,7 @@ def get_earthquake():
     earthquakes = Earthquake.select()
 
     response = {
-        "result": [eq.to_dictionary() for eq in earthquakedb]
+        "result": [eq.to_dictionary() for eq in earthquakes]
     }
 
     return json.dumps(response), 200
