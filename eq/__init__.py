@@ -24,7 +24,7 @@ def say_hello():
     return "Hello world"
 
 @app.route('/api/eq')
-def get_earthquake():
+def get_earthquakes():
     earthquakes = Earthquake.select()
 
     response = {
@@ -33,3 +33,15 @@ def get_earthquake():
 
     # return json.dumps(response, sort_keys=True, default=str), 200
     return jsonify(response)
+
+@app.route('/api/eq/<id>')
+def get_earthquake(id):
+    earthquake = Earthquake \
+        .select() \
+        .where(Earthquake.id == id) \
+        .first()
+
+    if not earthquake:
+        return { "error": "Earthuqake doesn't exist" }, 404
+
+    return jsonify(earthquake.to_dictionary())
