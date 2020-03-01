@@ -34,11 +34,14 @@ def get_earthquake():
         }
         return jsonify(response)
     else: #request.method == "POST":
-        fmt = request.args.get('format')
-        if not fmt in FORMATS:
-            return { }, 300
-        format_converter = FORMATS[fmt]
+        # fmt = request.args.get('format')
+        # if not fmt in FORMATS:
+        #     return {}, 300
+        if not 'file' in request.files:
+            # print(dir(request))
+            print(request.data)
+            return "FUCK"
+        format_converter = FORMATS['rss']
         f = request.files['file']
-        # quake = format_converter()
-        quake="TEST"
+        quake = format_converter(f)
         return quake
