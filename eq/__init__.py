@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from flask import Flask, request
-=======
-from flask import Flask, jsonify
->>>>>>> 732fdb2fb297176c49832faddec5df5035161e7b
+from flask import Flask, jsonify, request
 from peewee import *
 from instance.config import *
 import json
