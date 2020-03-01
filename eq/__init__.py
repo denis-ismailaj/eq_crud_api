@@ -1,17 +1,23 @@
 from flask import Flask, jsonify, request
+from flask_jwt import JWT, jwt_required, current_identity
 from peewee import *
 from instance.config import *
 import json
 
-from eq.model import database, Earthquake
+from eq.model import database 
+from eq.model.earthquake import Earthquake
 from eq.util import ts_to_dt
 from eq.formats import FORMATS
 from eq.util.exceptions import ApiError, BadParamError
+from eq.hooks import post_notify
+from eq.auth import identity, authenticate_username
 
 from playhouse.shortcuts import model_to_dict
 
 app = Flask(__name__)
+
 app.config.from_pyfile("../instance/config.py")
+jwt = JWT(app, authenticate_username, identity)
 
 ##
 
@@ -110,6 +116,12 @@ def get_earthquakes():
         quake = format_converter(f)
         return quake
 
+@app.route('/api/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    return "" % current_identity, 200
+
+@post_notify
 @app.route('/api/eq/<id>')
 def get_earthquake(id):
     earthquake = Earthquake \

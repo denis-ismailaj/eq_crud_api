@@ -16,16 +16,3 @@ class BaseModel(Model):
 
     def to_dict(self):
         return model_to_dict(self)
-
-
-class Earthquake(BaseModel):
-    class Meta:
-        table_name = "earthquakes"
-
-    id = PrimaryKeyField(unique = True)
-    datetime = DateTimeField(db_column = "dtime")
-    latitude = DoubleField(db_column = "latitude")
-    longitude = DoubleField(db_column = "longitude")
-    depth = DoubleField(db_column = "depth")
-    position = CharField(db_column = "position") 
-    magnitude = DoubleField(db_column = "magnitude")
