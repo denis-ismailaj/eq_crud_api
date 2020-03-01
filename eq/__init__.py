@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from eq.formats import FORMATS
 from peewee import *
 from instance.config import *
 import json
@@ -99,12 +100,9 @@ def get_earthquakes():
 
     else: #request.method == "POST":
         fmt = request.args.get('format')
-        if not fmt in FORMATS:
-            return {}, 300
-        if not 'file' in request.files:
-            # print(dir(request))
-            print(request.data)
-            return "FUCK"
+        if not fmt in FORMATS or not 'file' in request.files:
+            raise ApiError("No such format")
+
         format_converter = FORMATS['rss']
         f = request.files['file']
         quake = format_converter(f)
