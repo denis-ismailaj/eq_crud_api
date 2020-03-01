@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from flask import Flask, request
+=======
+from flask import Flask, jsonify
+>>>>>>> 732fdb2fb297176c49832faddec5df5035161e7b
 from peewee import *
 from instance.config import *
 import json
@@ -31,8 +35,7 @@ def get_earthquake():
         response = {
             "result": [eq.to_dictionary() for eq in earthquakes]
         }
-
-        return json.dumps(response), 200
+        return jsonify(response)
     elif request.method == "POST":
         fmt = request.args.get('format')
         return fmt

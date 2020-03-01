@@ -11,10 +11,10 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-    def stringify():
-        return json.dumps(model_to_dict(self)) 
+    def stringify(self):
+        return json.dumps(model_to_dict(self), default=str, sort_keys=True)
 
-    def to_dictionary():
+    def to_dictionary(self):
         return model_to_dict(self)
 
 
