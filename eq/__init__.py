@@ -151,7 +151,7 @@ from playhouse.shortcuts import model_to_dict
 app = Flask(__name__)
 
 app.config.from_pyfile("../instance/config.py")
-jwt = JWT(app, authenticate_username, identity)
+# jwt = JWT(app, authenticate_username, identity)
 
 ##
 
@@ -251,7 +251,7 @@ def get_earthquakes():
         return quake
 
 @app.route('/api/protected', methods=['GET'])
-@jwt_required()
+# @jwt_required()
 def protected():
     return "" % current_identity, 200
 
