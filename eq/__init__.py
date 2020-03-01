@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from eq.formats import FORMATS
 from peewee import *
 from instance.config import *
 import json
@@ -23,7 +24,7 @@ def after_request(response):
 def say_hello():
     return "Hello world"
 
-@app.route('/api/eq')
+@app.route('/api/eq', methods=[ 'POST', 'GET' ])
 def get_earthquake():
     if request.method == "GET":
         earthquakes = Earthquake.select()
@@ -32,6 +33,12 @@ def get_earthquake():
             "result": [eq.to_dictionary() for eq in earthquakes]
         }
         return jsonify(response)
-    elif request.method == "POST":
+    else: #request.method == "POST":
         fmt = request.args.get('format')
-        return fmt
+        if not fmt in FORMATS:
+            return { }, 300
+        format_converter = FORMATS[fmt]
+        f = request.files['file']
+        # quake = format_converter()
+        quake="TEST"
+        return quake
