@@ -25,7 +25,7 @@ class Earthquake(BaseModel):
     id = PrimaryKeyField(unique = True)
     datetime = DateTimeField(db_column = "dtime")
     latitude = DoubleField(db_column = "latitude")
-    longitude = DoubleField(db_column = "longtitude")
+    longitude = DoubleField(db_column = "longitude")
     depth = DoubleField(db_column = "depth")
     position = CharField(db_column = "position") 
     magnitude = DoubleField(db_column = "magnitude")

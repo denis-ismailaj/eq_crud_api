@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from peewee import *
 from instance.config import *
 import json
@@ -25,10 +25,14 @@ def say_hello():
 
 @app.route('/api/eq')
 def get_earthquake():
-    earthquakes = Earthquake.select()
+    if request.method == "GET":
+        earthquakes = Earthquake.select()
 
-    response = {
-        "result": [eq.to_dictionary() for eq in earthquakes]
-    }
+        response = {
+            "result": [eq.to_dictionary() for eq in earthquakes]
+        }
 
-    return json.dumps(response), 200
+        return json.dumps(response), 200
+    elif request.method == "POST":
+        fmt = request.args.get('format')
+        return fmt
