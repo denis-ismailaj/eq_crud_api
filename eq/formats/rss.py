@@ -1,4 +1,5 @@
 def convert(input_bytes):
+    print("WHATTHEFUCK")
     return {
             "id": 1,
             "datetime": "01 Jan 1970 13:14:31",
