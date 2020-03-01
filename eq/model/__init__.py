@@ -14,7 +14,7 @@ class BaseModel(Model):
     def stringify(self):
         return json.dumps(model_to_dict(self), default=str, sort_keys=True)
 
-    def to_dictionary(self):
+    def to_dict(self):
         return model_to_dict(self)
 
 
