@@ -25,7 +25,7 @@ def say_hello():
     return "Hello world"
 
 @app.route('/api/eq', methods=[ 'POST', 'GET' ])
-def get_earthquake():
+def get_earthquakes():
     if request.method == "GET":
         earthquakes = Earthquake.select()
 
@@ -45,3 +45,15 @@ def get_earthquake():
         f = request.files['file']
         quake = format_converter(f)
         return quake
+
+@app.route('/api/eq/<id>')
+def get_earthquake(id):
+    earthquake = Earthquake \
+        .select() \
+        .where(Earthquake.id == id) \
+        .first()
+
+    if not earthquake:
+        return { "error": "Earthuqake doesn't exist" }, 404
+
+    return jsonify(earthquake.to_dictionary())
