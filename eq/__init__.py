@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from eq.formats import FORMATS
 from peewee import *
 from instance.config import *
 import json
@@ -23,16 +24,24 @@ def after_request(response):
 def say_hello():
     return "Hello world"
 
-@app.route('/api/eq')
+@app.route('/api/eq', methods=[ 'POST', 'GET' ])
 def get_earthquakes():
-    earthquakes = Earthquake.select()
+    if request.method == "GET":
+        earthquakes = Earthquake.select()
 
-    response = {
-        "result": [eq.to_dictionary() for eq in earthquakes]
-    }
-
-    # return json.dumps(response, sort_keys=True, default=str), 200
-    return jsonify(response)
+        response = {
+            "result": [eq.to_dictionary() for eq in earthquakes]
+        }
+        return jsonify(response)
+    else: #request.method == "POST":
+        fmt = request.args.get('format')
+        if not fmt in FORMATS:
+            return { }, 300
+        format_converter = FORMATS[fmt]
+        f = request.files['file']
+        # quake = format_converter()
+        quake="TEST"
+        return quake
 
 @app.route('/api/eq/<id>')
 def get_earthquake(id):

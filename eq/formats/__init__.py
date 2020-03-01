@@ -1,4 +1,4 @@
-import . rss
+from . import rss
 
 FORMATS = {}
 
