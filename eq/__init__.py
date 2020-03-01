@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from peewee import *
 from instance.config import *
 import json
@@ -31,4 +31,5 @@ def get_earthquake():
         "result": [eq.to_dictionary() for eq in earthquakes]
     }
 
-    return json.dumps(response), 200
+    # return json.dumps(response, sort_keys=True, default=str), 200
+    return jsonify(response)

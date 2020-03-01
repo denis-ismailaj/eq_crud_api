@@ -11,10 +11,10 @@ class BaseModel(Model):
     class Meta:
         database = database
 
-    def stringify():
-        return json.dumps(model_to_dict(self)) 
+    def stringify(self):
+        return json.dumps(model_to_dict(self), default=str, sort_keys=True)
 
-    def to_dictionary():
+    def to_dictionary(self):
         return model_to_dict(self)
 
 
@@ -25,7 +25,7 @@ class Earthquake(BaseModel):
     id = PrimaryKeyField(unique = True)
     datetime = DateTimeField(db_column = "dtime")
     latitude = DoubleField(db_column = "latitude")
-    longitude = DoubleField(db_column = "longtitude")
+    longitude = DoubleField(db_column = "longitude")
     depth = DoubleField(db_column = "depth")
     position = CharField(db_column = "position") 
     magnitude = DoubleField(db_column = "magnitude")
