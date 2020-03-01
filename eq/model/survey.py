@@ -3,31 +3,25 @@ from playhouse.shortcuts import model_to_dict
 
 from . import BaseModel
 from . user import User
-
-class Survey(BaseModel):
-    id = PrimaryKeyField(unique = True)
-
-    title = CharField()
-    created = DateTimeField()
-    json_schema = TextField()
-
-    created_by = ForeignKeyField(User, null=True)
-    #A one to many relationship with SurveyQuestion
+from . earthquake import Earthquake
 
 class SurveyField(BaseModel):
     id = PrimaryKeyField(unique = True)
 
-    label = CharField()
+    earthquake = ForeignKeyField(Earthquake)
+    input_type = IntegerField()
+    title = CharField()
+    choice = TextField()
 
-    survey = ForeignKeyField(Survey)
-
-class FilledSurvey(BaseModel):
+class SurveySubmission(BaseModel):
     id = PrimaryKeyField(unique = True)
 
-    survey = ForeignKeyField(Survey)
-    filled_by = ForeignKeyField(User, null=True)
+    created_at = DateTimeField()
+    created_by = ForeignKeyField(User, null = True)
 
-class FilledSurveyField(BaseModel):
+class SurveyAnswer(BaseModel):
     id = PrimaryKeyField(unique = True)
 
-    filled_survey = ForeignKeyField(FilledSurvey)
+    field = ForeignKeyField(SurveyField)
+    value = CharField()
+    submission = ForeignKeyField(SurveySubmission)
