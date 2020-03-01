@@ -42,6 +42,7 @@ def before_request():
 
 @app.after_request
 def after_request(response):
+    response.headers["Access-Control-ALlow-Origin"] = "*"
     database.close()
     return response
 
